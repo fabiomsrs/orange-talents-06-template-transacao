@@ -10,6 +10,7 @@ public class TransacaoDto {
     private String id;
     private BigDecimal valor;
     private CartaoDto cartao;
+    private LocalDateTime efetivadaEm;
 
     public TransacaoDto() {
     }
@@ -17,6 +18,7 @@ public class TransacaoDto {
     public TransacaoDto(Transacao transacao) {
         this.id = transacao.getId();
         this.valor = transacao.getValor();
+        this.efetivadaEm = transacao.getEfetivadaEm();
     }
 
     public String getId() {
@@ -25,6 +27,10 @@ public class TransacaoDto {
 
     public BigDecimal getValor() {
         return valor;
+    }
+
+    public LocalDateTime getEfetivadaEm() {
+        return efetivadaEm;
     }
 
     public void setId(String id) {
@@ -39,8 +45,12 @@ public class TransacaoDto {
         this.cartao = cartao;
     }
 
+    public void setEfetivadaEm(LocalDateTime efetivadaEm) {
+        this.efetivadaEm = efetivadaEm;
+    }
+
     public Transacao converter(){
-        return new Transacao(this.id, this.valor, this.cartao.converter());
+        return new Transacao(this.id, this.valor, this.cartao.converter(), this.efetivadaEm);
     }
 
     public static Page<TransacaoDto> converter(Page<Transacao> transacoes) {
